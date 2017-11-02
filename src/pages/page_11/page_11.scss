@@ -1,0 +1,33 @@
+page-11 {
+  .product {
+    ion-item-divider {
+      background-color: #fff;
+      border-top: 5px solid #F0F5F7;
+      border-bottom: 1px solid #eee;
+      ion-avatar {
+        margin: 0 !important;
+        min-width: 25px;
+        min-height: 25px;
+        margin-right: 5px !important;
+        img {
+          width: 25px;
+          height: 25px;
+        }
+      }
+      ion-label {
+        margin: 0;
+      }
+    }
+    ion-item {
+      border-bottom: 1px solid #eee !important;
+      p {
+        margin-top: 10px;
+      }
+    }
+    ion-label {
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+  }
+}
+  

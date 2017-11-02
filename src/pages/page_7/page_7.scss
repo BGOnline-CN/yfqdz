@@ -1,0 +1,15 @@
+page-7 {
+  ion-content {
+    background-color: #F0F5F7 !important;
+    ion-card {
+      img {
+        border-bottom: 1px solid #eee;
+      }
+      ion-card-content {
+        ion-textarea {
+          border-bottom: 1px solid #eee;
+        }
+      }
+    }
+  }
+}

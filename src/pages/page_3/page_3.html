@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-navbar color="primary" padding-vertical>
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>信用卡</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="goToPage7()">
+        <ion-icon name="ios-happy-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)" pullMax="300">
+    <ion-refresher-content
+      pullingIcon="ios-arrow-round-down-outline"
+      pullingText="松开刷新"
+      refreshingSpinner="circles">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-item>
+    <ion-label>筛选发卡银行：</ion-label>
+    <ion-select [(ngModel)]="bank" okText="确定" cancelText="取消" (ngModelChange)="getCard()">
+      <ion-option value="" selected>默认</ion-option>
+      <ion-option value="{{d.bank}}" *ngFor="let d of bankData">{{d.bank}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-list class="cards" *ngFor="let d of card" tappable (click)="getDetails(d, 10)">
+    <ion-item>
+      <ion-thumbnail item-start>
+        <img-lazy-load [src]="d.image"></img-lazy-load>
+      </ion-thumbnail>
+      <h3>{{d.title}}</h3>
+      <p>{{d.sketch}}</p>
+      <p>提现额度：<ion-note style="color: #f0ad4e">信用卡额度的{{d.limit}}%</ion-note></p>
+    </ion-item>
+  </ion-list>
+  <ion-label *ngIf="noMoreData" text-center style="color: #aeacb4;">已经到底啦！</ion-label>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [enabled]="!noMoreData">
+    <ion-infinite-scroll-content
+      loadingSpinner="dots"
+      loadingText="拉取更多数据...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

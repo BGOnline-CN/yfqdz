@@ -1,0 +1,26 @@
+<ion-header no-lines>
+  <ion-navbar color="primary" no-lines>
+    <ion-title>
+      {{data.title}}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-list class="cards" style="border-bottom: 8px solid #F0F5F7;" no-lines>
+    <ion-item>
+      <ion-thumbnail item-start>
+        <img src="{{data.image}}" alt="图片">
+      </ion-thumbnail>
+      <h3>{{data.title}}</h3>
+      <p>{{data.sketch}}</p>
+      <p>提现额度：<ion-note style="color: #f0ad4e">信用卡额度的{{data.limit}}%</ion-note></p>
+    </ion-item>
+  </ion-list>
+  <ion-list-header>
+    信用卡说明
+  </ion-list-header>
+  <div [innerHTML]="data.describe" padding></div>
+</ion-content>
+<ion-footer>
+  <button ion-button full no-margin style="padding: 25px;" (click)="openUrl()">立即申请</button>
+</ion-footer>

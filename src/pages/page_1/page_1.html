@@ -1,0 +1,147 @@
+<ion-header>
+  <ion-navbar color="primary" padding-vertical>
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <form (ngSubmit)="goToPage11(myInput)">
+      <ion-searchbar
+        [(ngModel)]="myInput"
+        [animated]="true"
+        placeholder="贷款产品"
+        name="loanInput">
+      </ion-searchbar>
+    </form>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="goToPage7()">
+        <ion-icon name="ios-happy-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)" pullMax="300">
+    <ion-refresher-content
+      pullingIcon="ios-arrow-round-down-outline"
+      pullingText="松开刷新"
+      refreshingSpinner="circles">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-slides *ngIf="images && images.length > 0" #mySlides1 class="banner" pager loop="true" autoplay="3500">
+    <ion-slide *ngFor="let d of images" tappable (click)="getDetails(d, 6)">
+      <img src="{{d.image}}">
+    </ion-slide>
+  </ion-slides>
+  <ion-grid padding-horizontal>
+    <ion-row align-items-center>
+      <ion-col col-2>
+        <img src="assets/images/news.png" alt="" style="display: block;margin: 0 auto;width: 30px;">
+      </ion-col>
+      <ion-col col-10>
+        <ion-slides *ngIf="news && news.length > 0" #mySlides2 class="roll-news" loop="true" direction="vertical" autoplay="3000">
+          <ion-slide *ngFor="let d of news" tappable (click)="getDetails(d, 6)">
+            <ion-label no-margin>
+              {{d.title}}
+            </ion-label>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid padding class="hot-product product-class">
+    <ion-row>
+      <ion-col col-3 tappable (click)="goToPage11('极速借款', 0)">
+        <div>
+          <img src="assets/images/1.png" alt="">
+        </div>
+        <span>极速借款</span>
+      </ion-col>
+      <ion-col col-3 tappable (click)="goToPage11('高通过率', 1)">
+        <div>
+          <img src="assets/images/2.png" alt="">
+        </div>
+        <span>高通过率</span>
+      </ion-col>
+      <ion-col col-3 tappable (click)="goToPage11('资料少', 2)">
+        <div>
+          <img src="assets/images/3.png" alt="">
+        </div>
+        <span>资料少</span>
+      </ion-col>
+      <ion-col col-3 tappable (click)="goToPage11('精准推荐', 3)">
+        <div>
+          <img src="assets/images/4.png" alt="">
+        </div>
+        <span>精准推荐</span>
+      </ion-col>
+      <ion-col col-3 tappable (click)="goToPage11('信用卡代还', 4)">
+        <div>
+          <img src="assets/images/5.png" alt="">
+        </div>
+        <span>信用卡代还</span>
+      </ion-col>
+      <ion-col col-3 tappable (click)="goToPage11('用芝麻分借', 5)">
+        <div>
+          <img src="assets/images/6.png" alt="">
+        </div>
+        <span>用芝麻分借</span>
+      </ion-col>
+      <ion-col col-3 tappable (click)="goToPage11('用手机号借', 6)">
+        <div>
+          <img src="assets/images/7.png" alt="">
+        </div>
+        <span>用手机号借</span>
+      </ion-col>
+      <ion-col col-3 tappable (click)="goToPage11('新产品', 7)">
+        <div>
+          <img src="assets/images/8.png" alt="">
+        </div>
+        <span>新产品</span>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-list-header detail-push>
+    热门贷款
+    <ion-note item-end tappable (click)="goToPage2()">更多</ion-note>
+  </ion-list-header>
+  <!-- <ion-grid class="filt">
+    <ion-row align-items-center>
+      <ion-col col-3>
+        <span>2000以下</span>
+      </ion-col>
+      <ion-col col-3>
+        <span>2000-10000</span>
+      </ion-col>
+      <ion-col col-3>
+        <span>10000-50000</span>
+      </ion-col>
+      <ion-col col-3>
+        <span>50000以上</span>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
+  <ion-grid padding class="hot-product">
+    <ion-row>
+      <ion-col col-3 *ngFor="let d of loan.list | slice:0:8" tappable (click)="getDetails(d, 9)">
+        <img-lazy-load [src]="d.image"></img-lazy-load>
+        <span>{{d.name}}</span>
+        <ion-note>{{d.sketch}}</ion-note>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-list class="cards">
+    <ion-list-header detail-push>
+      热门信用卡
+      <ion-note item-end tappable (click)="goToPage3()">更多</ion-note>
+    </ion-list-header>
+    <ion-item *ngFor="let d of card.list | slice:0:4" tappable (click)="getDetails(d, 10)">
+      <ion-thumbnail item-start>
+        <img-lazy-load [src]="d.image"></img-lazy-load>
+      </ion-thumbnail>
+      <h3>{{d.title}}</h3>
+      <p>{{d.sketch}}</p>
+      <p>提现额度：<ion-note style="color: #f0ad4e">信用卡额度的{{d.limit}}%</ion-note></p>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+

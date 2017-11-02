@@ -1,0 +1,51 @@
+<ion-header no-lines>
+  <ion-navbar color="primary" no-lines>
+    <ion-title>
+      <img src="{{data.image}}" alt="图片">
+      {{data.name}}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div class="product-dec" text-center>
+    <ion-note style="color: #C4C8C6;">
+      可贷额度
+      <ion-icon name="ios-cash-outline"></ion-icon>
+    </ion-note>
+    <ion-label color="light">{{data.minpay | number}}-{{data.maxpay | number}}元</ion-label>
+    <ion-note color="light">期限{{data.minDate1}}至{{data.maxDate1}}个月</ion-note>
+  </div>
+  <ul no-margin class="clearfix ul_1">
+    <li>
+      <ion-note>申请人数：<span>{{data.people}}人</span></ion-note>
+    </li>
+    <li>
+      <ion-note>最长下款时间：<span>{{data.maxPayDate}}天</span></ion-note>
+    </li>
+  </ul>
+  <div padding-horizontal class="news">
+    <ion-segment [(ngModel)]="switchNews">
+      <ion-segment-button value="cpsm">
+        产品说明
+      </ion-segment-button>
+      <ion-segment-button value="sqyq">
+        申请要求
+      </ion-segment-button>
+      <ion-segment-button value="dkgl">
+        贷款攻略
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+  <div [ngSwitch]="switchNews" padding style="border-bottom: 8px solid #F0F5F7;">
+    <div *ngSwitchCase="'cpsm'" [innerHTML]="data.describe" padding></div>
+    <div *ngSwitchCase="'sqyq'" [innerHTML]="data.require" padding></div>
+    <div *ngSwitchCase="'dkgl'" [innerHTML]="data.strategy" padding></div>
+  </div>
+  <ion-list-header>
+    其他说明
+  </ion-list-header>
+  <div [innerHTML]="data.other" padding></div>
+</ion-content>
+<ion-footer>
+  <button ion-button full no-margin style="padding: 25px;" (click)="openUrl()">立即申请</button>
+</ion-footer>

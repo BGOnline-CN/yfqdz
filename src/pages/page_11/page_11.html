@@ -1,0 +1,89 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>{{loanType.name}}</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)" pullMax="300">
+    <ion-refresher-content
+      pullingIcon="ios-arrow-round-down-outline"
+      pullingText="松开刷新"
+      refreshingSpinner="circles">
+    </ion-refresher-content>
+  </ion-refresher>
+  <!-- <ion-list no-border no-margin>
+    <button ion-item (click)="show1 = !show1">
+      <ion-icon name='ios-calendar-outline' item-start></ion-icon>
+      贷款期限
+      <ion-note item-end>
+        {{qx + '期'}}
+      </ion-note>
+    </button>
+    <ion-item *ngIf="show1">
+      <ion-range min="1" snaps="true" min="1" max="12" pin="true" [(ngModel)]="qx">
+        <ion-label range-left>1期</ion-label>
+        <ion-label range-right>12期</ion-label>
+      </ion-range>
+    </ion-item>
+    <button ion-item (click)="show2 = !show2">
+      <ion-icon name='ios-cash-outline' item-start></ion-icon>
+      贷款金额
+      <ion-note item-end>
+        {{je.lower + '元 - ' + je.upper + '元'}}
+      </ion-note>
+    </button>
+    <ion-item *ngIf="show2">
+      <ion-range dualKnobs="true" snaps="true" step="5000" pin="true" min="1000" max="50000" [(ngModel)]="je" color="dark">
+        <ion-label range-left>1000元</ion-label>
+        <ion-label range-right>50000元</ion-label>
+      </ion-range>
+    </ion-item>
+  </ion-list> -->
+  <ion-list class="product" no-margin>
+    <div *ngFor="let d of loan" tappable (click)="getDetails(d, 9)">
+      <ion-item-divider>
+        <ion-avatar item-start>
+          <img-lazy-load [src]="d.image"></img-lazy-load>
+        </ion-avatar>
+        {{d.name}}
+        <ion-badge color="danger" item-end *ngIf="d.label4 == 0">
+          <ion-icon name="ios-flame-outline"></ion-icon>
+          最热门
+        </ion-badge>
+        <ion-badge item-end *ngIf="d.label4 == 1">
+          <ion-icon name="ios-stats-outline"></ion-icon>
+          额度高
+        </ion-badge>
+        <ion-badge color="secondary" item-end *ngIf="d.label4 == 2">
+          <ion-icon name="ios-speedometer-outline"></ion-icon>
+          放款快
+        </ion-badge>
+        <ion-badge color="dark" item-end *ngIf="d.label4 == 3">
+          <ion-icon name="ios-trending-down-outline"></ion-icon>
+          利息低
+        </ion-badge>
+      </ion-item-divider>
+      <ion-item no-lines>
+        <div item-start text-center>
+          <ion-note color="danger">{{d.minpay | number}}-{{d.maxpay | number}}</ion-note>
+          <p>可贷额度（￥）</p>
+        </div>
+        <div style="padding-left: 15%;">
+          <h3>申请人数：{{d.people}}人</h3>
+          <p>{{d.sketch}}</p>
+          <p>参考：<ion-note color="dark">{{d.consult}}</ion-note></p>
+        </div>
+      </ion-item>
+    </div>
+  </ion-list>
+  <ion-label *ngIf="noMoreData" text-center style="color: #aeacb4;">已经到底啦！</ion-label>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [enabled]="!noMoreData">
+    <ion-infinite-scroll-content
+      loadingSpinner="dots"
+      loadingText="拉取更多数据...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+  
+  
+  

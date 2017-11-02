@@ -1,0 +1,60 @@
+page-4 {
+  .hot-product {
+    ion-row {
+      ion-col {
+        text-align: center;
+        img {
+          display: block;
+          margin: 0 auto;
+          height: 50px;
+          margin-bottom: 5px;
+        }
+        span {
+          margin-bottom: 5px;
+          display: block;
+        }
+        ion-note {
+          font-size: 10px;
+        }
+      }
+    }
+  }
+  .news {
+    border-top: 10px solid #F0F5F7;
+    ion-segment {
+      ion-segment-button {
+        border-radius: 0 !important;
+        color: initial !important;
+        border-width: 0 0 !important;
+      }
+    }
+    ion-segment {
+      ion-segment-button.segment-activated {
+        background-color: transparent !important;
+        border-width: 0 0 2px 0 !important;
+        color: #488aff !important;
+      }
+    }
+  }
+  .newsList {
+    ion-grid {
+      border-top: 2px solid #F0F5F7;
+      padding: 0;
+      ion-row {
+        padding: 5px;
+        border-bottom: 8px solid #F0F5F7;
+      }
+    }
+  }
+  .blur {	
+    filter: url(blur.svg#blur); /* FireFox, Chrome, Opera */
+    
+    -webkit-filter: blur(1px); /* Chrome, Opera */
+       -moz-filter: blur(1px);
+        -ms-filter: blur(1px);    
+            filter: blur(1px);
+    
+    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=1, MakeShadow=false); /* IE6~IE9 */
+  }
+}
+  

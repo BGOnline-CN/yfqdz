@@ -1,0 +1,103 @@
+<ion-header>
+  <ion-navbar color="primary" padding-vertical>
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>发现</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="goToPage7()">
+        <ion-icon name="ios-happy-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)" pullMax="300">
+    <ion-refresher-content
+      pullingIcon="ios-arrow-round-down-outline"
+      pullingText="松开刷新"
+      refreshingSpinner="circles">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-grid padding class="hot-product">
+    <ion-row>
+      <ion-col col-4 tappable (click)="goToPage5('业内新闻', 9)">
+        <img src="assets/images/yjxw.png" alt="">
+        <span>业内新闻</span>
+        <ion-note>贷款头条</ion-note>
+      </ion-col>
+      <ion-col col-4 tappable (click)="goToPage11('精准推荐', 3)">
+        <img src="assets/images/jztj.png" alt="">
+        <span>精准推荐</span>
+        <ion-note>推荐合适产品</ion-note>
+      </ion-col>
+      <ion-col col-4 tappable (click)="goToPage5('贷款百科', 3)">
+        <img src="assets/images/dkbk.png" alt="">
+        <span>贷款百科</span>
+        <ion-note>补充贷款知识</ion-note>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div padding-horizontal class="news">
+    <ion-segment [(ngModel)]="switchNews">
+      <ion-segment-button value="dkgl" (click)="changeSwitch()">
+        贷款攻略
+      </ion-segment-button>
+      <ion-segment-button value="hdfl" (click)="changeSwitch()">
+        活动福利
+      </ion-segment-button>
+      <ion-segment-button value="bdzl" (click)="changeSwitch()">
+        本地专栏
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+  
+  <div [ngSwitch]="switchNews" class="newsList">
+    <ion-grid *ngSwitchCase="'dkgl'">
+      <ion-row *ngFor="let d of dkgl" tappable (click)="getDetails(d, 6)">
+        <ion-col col-8>
+          <p no-margin margin-bottom>{{d.title}}</p>
+          <ion-note>{{d.createTime * 1000 | date:"y-MM-dd HH:mm"}}</ion-note>
+        </ion-col>
+        <ion-col col-4>
+          <ion-thumbnail>
+            <img-lazy-load [src]="d.image"></img-lazy-load>
+          </ion-thumbnail>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid *ngSwitchCase="'hdfl'">
+      <ion-row *ngFor="let d of hdfl" tappable (click)="getDetails(d, 6)">
+        <ion-col col-8>
+          <p no-margin margin-bottom>{{d.title}}</p>
+          <ion-note>{{d.createTime * 1000 | date:"y-MM-dd HH:mm"}}</ion-note>
+        </ion-col>
+        <ion-col col-4>
+          <ion-thumbnail>
+            <img-lazy-load [src]="d.image"></img-lazy-load>
+          </ion-thumbnail>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid *ngSwitchCase="'bdzl'">
+      <ion-row *ngFor="let d of bdzl" tappable (click)="getDetails(d, 6)">
+        <ion-col col-8>
+          <p no-margin margin-bottom>{{d.title}}</p>
+          <ion-note>{{d.createTime * 1000 | date:"y-MM-dd HH:mm"}}</ion-note>
+        </ion-col>
+        <ion-col col-4>
+          <ion-thumbnail>
+            <img-lazy-load [src]="d.image"></img-lazy-load>
+          </ion-thumbnail>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <ion-label *ngIf="noMoreData" text-center style="color: #aeacb4;">已经到底啦！</ion-label>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [enabled]="!noMoreData">
+    <ion-infinite-scroll-content
+      loadingSpinner="dots"
+      loadingText="拉取更多数据...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

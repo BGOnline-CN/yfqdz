@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>{{articleType.name}}</ion-title>
+  </ion-navbar>
+  <ion-toolbar>
+    <form (ngSubmit)="getArticle()">
+      <ion-searchbar
+        [(ngModel)]="searchTitle"
+        placeholder="请输入文章标题"
+        name="search">
+      </ion-searchbar>
+    </form>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)" pullMax="300">
+    <ion-refresher-content
+      pullingIcon="ios-arrow-round-down-outline"
+      pullingText="松开刷新">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div class="newsList">
+    <ion-grid>
+      <ion-row *ngFor="let d of article" tappable (click)="goToPage6(d)">
+        <ion-col col-8>
+          <p no-margin margin-bottom>{{d.title}}</p>
+          <ion-note>{{d.createTime * 1000 | date:"y-MM-dd HH:mm"}}</ion-note>
+        </ion-col>
+        <ion-col col-4>
+          <ion-thumbnail>
+            <img-lazy-load [src]="d.image"></img-lazy-load>
+          </ion-thumbnail>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <ion-label *ngIf="noMoreData" text-center style="color: #aeacb4;">已经到底啦！</ion-label>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [enabled]="!noMoreData">
+    <ion-infinite-scroll-content
+      loadingSpinner="dots"
+      loadingText="拉取更多数据...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
